@@ -1,0 +1,21 @@
+
+
+
+1. So the first thing our application app would do to allow our customers to access the 
+   Gilded Rose inventory of items is to require them to register. This is so that we may have them
+   authenticate and provide basic information necessary to purchase and item such as a credit card, etc.
+   
+2. The first line of defense normally for a REST API is to require the user to use a HTTPS connection however for 
+   this example I chose not to implement that since it requires using a certificate and to keep the setup of this demo
+   as simple as possible.
+   
+3. Next I would secure the REST API through the use of JSON web tokens (JWT).
+
+4. So a Gilded Rose merchant would authenticate to the REST API after registering.
+   Then receive back a JWT, and then thereafter past the JWT,  in the Authorization header using the Bearer schema, to the REST API.
+   
+5. Thereafter any communication with API must include the JWT token.
+
+6. By receiving a token, the REST api can know that the merchant is authenticated.
+
+7. 
