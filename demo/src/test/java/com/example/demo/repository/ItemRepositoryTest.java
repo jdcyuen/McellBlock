@@ -25,11 +25,51 @@ public class ItemRepositoryTest {
 	}
 
 	@Test
-	public void saveTest() {
-		Item item = new Item("Everlane", "Baccarate Cocktail Party in a Box", "Crystal", "1995.00");
-		itemRepo.save(item);
+	public void findByCategoryTest() {		
+		
 		List<Item> items = itemRepo.findByCategory("Crystal");		
 		Assert.assertTrue( items.size() > 0);
+		
+		for(Item i : items) {
+			System.out.println(i.toString());
+		
+		}
+		System.out.println("===============================");
 	}
+	
+	/*@Test
+	public void findAll() {
+				
+		List<Item> items = itemRepo.findAll();		
+		Assert.assertTrue( items.size() > 0);
+		
+		for(Item i : items) {
+			System.out.println(i.toString());
+		
+		}
+		System.out.println("===============================");
+	}*/
+	
+	/*@Test
+	public void findAllCategories() {
+		
+		List<String> categories = itemRepo.findAllCategories();		
+		Assert.assertTrue( categories.size() > 0);
+		
+		for(String category : categories) {
+			System.out.println(category);
+		
+		}
+		System.out.println("===============================");
+	}*/
+	
+	/*@Test
+	public void findByCategoryAndId() {
+		
+		Item item = itemRepo.findByCategoryAndId("Crystal", 1L);		
+		Assert.assertNotNull(item);		
+		System.out.println(item.toString());
+		System.out.println("===============================");
+	}*/
 
 }
