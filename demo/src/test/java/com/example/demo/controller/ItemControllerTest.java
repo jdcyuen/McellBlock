@@ -75,5 +75,66 @@ public class ItemControllerTest {
         Mockito.verify(itemService, Mockito.times(1)).getAll();
         Mockito.verifyNoMoreInteractions(itemService);
 	}
-
+	
+	@Test
+	public void testFindAllCategories() throws Exception {
+		
+		List<String> categories = Arrays.asList("category1", "category2", "category3");
+		
+		Mockito.when(itemService.getAllCategories()).thenReturn(categories);
+		mockMvc.perform(MockMvcRequestBuilders.get("/inventory/categories"))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(3)))        
+        .andExpect(MockMvcResultMatchers.jsonPath("$[0]", Is.is("category1")))       
+        .andExpect(MockMvcResultMatchers.jsonPath("$[1]", Is.is("category2")))
+        .andExpect(MockMvcResultMatchers.jsonPath("$[2]", Is.is("category3")));
+		
+	}
+	
+	@Test
+	public void testFindAllCategoryItems() throws Exception {
+		
+		 List<Item> items = Arrays.asList(
+	                new Item(Long.valueOf("1"), "mockName1", "mockDescription1", "mockcategory1", "1.00"),
+	                new Item(Long.valueOf("2"), "mockName2", "mockDescription2", "mockcategory1", "2.00"));		 
+		 
+		 Mockito.when(itemService.getItemsByCategory("mockcategory1")).thenReturn(items);
+		 mockMvc.perform(MockMvcRequestBuilders.get("/inventory/{category}/items", "mockcategory1"))
+		 .andExpect(MockMvcResultMatchers.status().isOk())
+         .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+         .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)))
+         
+         .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Is.is(1)))
+         .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Is.is("mockName1")))
+         
+         .andExpect(MockMvcResultMatchers.jsonPath("$[1].id", Is.is(2)))
+         .andExpect(MockMvcResultMatchers.jsonPath("$[1].name", Is.is("mockName2")));
+         
+         Mockito.verify(itemService, Mockito.times(1)).getItemsByCategory("mockcategory1");
+		 Mockito.verifyNoMoreInteractions(itemService);
+	
+	}
+	
+	
+	@Test
+	public void testFindCategoryItem() throws Exception {
+		
+		Item item = new Item(Long.valueOf("1"), "mockName1", "mockDescription1", "mockcategory1", "1.00");
+		
+		Mockito.when(itemService.getItemByCategoryAndId("mockcategory1", Long.valueOf("1"))).thenReturn(item);
+		mockMvc.perform(MockMvcRequestBuilders.get("/inventory/{category}/item/{id}", "mockcategory1", "1"))
+		 .andExpect(MockMvcResultMatchers.status().isOk())
+		 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+		 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is(1)))
+		 .andExpect(MockMvcResultMatchers.jsonPath("$.name", Is.is("mockName1")))
+		 .andExpect(MockMvcResultMatchers.jsonPath("$.description", Is.is("mockDescription1")))
+		 .andExpect(MockMvcResultMatchers.jsonPath("$.category", Is.is("mockcategory1")))
+		 .andExpect(MockMvcResultMatchers.jsonPath("$.price", Is.is("1.00")));
+		
+		Mockito.verify(itemService, Mockito.times(1)).getItemByCategoryAndId("mockcategory1", Long.valueOf("1"));
+		 Mockito.verifyNoMoreInteractions(itemService);
+		 
+	}
+	
 }
