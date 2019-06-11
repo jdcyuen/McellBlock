@@ -44,7 +44,6 @@ public class ItemControllerTest {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders
                 .standaloneSetup(itemController)
-                //.addFilters(new CORSFilter())
                 .build();
     }
 
