@@ -14,7 +14,17 @@
 4. So a Gilded Rose merchant would authenticate to the REST API after registering.
    Then receive back a JWT, and then thereafter pass the JWT,  in the Authorization header using the Bearer schema, to the REST API.
    
-   curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" https://{hostname}:{port}/api/myresource
+   For example,
+   In this example the API expects a POST body with “username”, “password” and “rememberMe” fields. jq is used to parse the JSON response, 
+   which contains the token in a field called “id_token”.
+
+   TOKEN=$(curl -s -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' --data '{"username":"{username}","password":"{password}",
+   "rememberMe":false}' https://{hostname}/api/authenticate | jq -r '.id_token')
+      
+   To pass the Bearer token in the Authorization Header the Gilded Rose merchant use the next command:
+   curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" https://{hostname}:{port}/inventory
+   
+   Online JWT builders, http://jwtbuilder.jamiekurtz.com/, https://kjur.github.io/jsjws/tool_jwt.html, https://www.jsonwebtoken.io/
    
 5. Thereafter any communication with API must include the JWT token.
 
