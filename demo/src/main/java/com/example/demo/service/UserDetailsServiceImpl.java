@@ -26,5 +26,3 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return new User(userInfo.getUserName(), userInfo.getPassword(), Arrays.asList(authority));
 	}
 }
-
-//https://github.com/riddhiparkhiya/spring-boot-security-demo/blob/master/src/main/java/com/example/service/UserDetailsServiceImpl.java

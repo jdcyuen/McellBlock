@@ -43,6 +43,3 @@ public class UserInfoService {
 		userDetailsRepository.deleteById(id);
 	}
 }
-
-
-//https://github.com/riddhiparkhiya/spring-boot-security-demo/blob/master/src/main/java/com/example/service/UserInfoService.java

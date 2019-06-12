@@ -23,5 +23,3 @@ public interface UserDetailsRepository extends CrudRepository<UserInfo, String> 
 
 	public void deleteById(Integer id);
 }
-
-//https://github.com/riddhiparkhiya/spring-boot-security-demo/blob/master/src/main/java/com/example/repo/UserDetailsRepository.java
