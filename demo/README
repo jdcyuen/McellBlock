@@ -1,5 +1,7 @@
 
-
+Once the eclipse project is imported from git, https://github.com/jdcyuen/mcellblock.git
+It can be compile by right clicking on the root of the project, select Run As -> Maven clean, then Run As -> Maven install
+To run the application right clicking on the root of the project, select Run As -> Spring Boot App
 
 1. So the first thing our application app would do to allow our customers to access the 
    Gilded Rose inventory of items is to require them to register. This is so that we may have them
