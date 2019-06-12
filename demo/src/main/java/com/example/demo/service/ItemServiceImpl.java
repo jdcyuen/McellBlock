@@ -30,6 +30,9 @@ public class ItemServiceImpl {
 		return itemRepo.findByCategoryAndId(category, id);
 	}
 	
+	public Item getItemById(Long id) {
+		return itemRepo.findById(id);
+	}
 	
 	
 	
