@@ -37,7 +37,7 @@ public class ItemRepositoryFT {
 		System.out.println("===============================");
 	}
 	
-	/*@Test
+	@Test
 	public void findAll() {
 				
 		List<Item> items = itemRepo.findAll();		
@@ -48,9 +48,9 @@ public class ItemRepositoryFT {
 		
 		}
 		System.out.println("===============================");
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	public void findAllCategories() {
 		
 		List<String> categories = itemRepo.findAllCategories();		
@@ -61,15 +61,24 @@ public class ItemRepositoryFT {
 		
 		}
 		System.out.println("===============================");
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	public void findByCategoryAndId() {
 		
 		Item item = itemRepo.findByCategoryAndId("Crystal", 1L);		
 		Assert.assertNotNull(item);		
 		System.out.println(item.toString());
 		System.out.println("===============================");
-	}*/
+	}
+	
+	@Test
+	public void findById() {
+		
+		Item item = itemRepo.findById(3L);		
+		Assert.assertNotNull(item);		
+		System.out.println(item.toString());
+		System.out.println("===============================");
+	}
 
 }

@@ -99,5 +99,17 @@ public class ItemRepositoryTest {
         Assert.assertTrue(categoryList.contains("category6"));
 	
 	}
+	
+	@Test
+    public void findByIdTest() {
+		
+		String mockItemId = "3";
+		
+		Item mockItem = new Item();
+		Mockito.when(itemRepositoryMock.findById(Long.valueOf(mockItemId))).thenReturn(mockItem);
+		
+		Item item = itemRepositoryMock.findById(Long.valueOf(mockItemId));
+		assertNotNull(item);		
+	}
 
 }

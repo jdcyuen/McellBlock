@@ -9,7 +9,8 @@ import com.example.demo.repository.entity.Item;
 
 public interface ItemRepository extends JpaRepository<Item, Long>{
 	
-	public List<Item> findByCategory(String category);	
+	public List<Item> findByCategory(String category);
+	public Item findById(Long id);
 	public Item findByCategoryAndId(String category, Long id);
 	
 	
