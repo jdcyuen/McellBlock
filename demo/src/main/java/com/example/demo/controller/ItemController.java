@@ -68,7 +68,7 @@ public class ItemController {
 	
 	
 	
-	@GetMapping(value = "/inventory/category/item/{id]/purchase")
+	@GetMapping(value = "/inventory/category/item/{id}/purchase")
 	public @ResponseBody String purchaseItem(@PathVariable String id) {
 		
 		/*
@@ -89,7 +89,7 @@ public class ItemController {
 		Item item = itemService.getItemById(Long.valueOf(id));
 		
 		
-		String message = "Your purchase of " + item.getName() + " has been submitted";
+		String message = "Your purchase of " + item.getName() + " has been submitted.";
 		
         return message;
     }

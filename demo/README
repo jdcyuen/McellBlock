@@ -33,7 +33,7 @@
 7. The usage scenario:
 
 	* To view inventory:
-		curl http://localhost:8081/GildedRose/inventory
+		curl http://localhost:8085/inventory
 		
 		response:
 			[{"id":1,"name":"Everlane","description":"Baccarate Cocktail Party in a Box","category":"Crystal","price":"1995.00"},
@@ -43,24 +43,28 @@
 			{"id":5,"name":"Amethyst Cocktail Ring","description":"Vintage Inspired Solitaire Cushion Amethyst Cocktail Ring","category":"Jewelry","price":"509.00"}]
 		
 	* To view a list of product categories:
-		curl http://localhost:8081/GildedRose/inventory/categories
+		curl http://localhost:8085/inventory/categories
 		
 		response:
 			["Jewelry","Crystal"]
 		
 	* To view list of products for a category, for example Crystal
 		
-		curl http://localhost:8081/GildedRose/inventory/Crystal/items
+		curl http://localhost:8085//inventory/Crystal/items
 		
 		response:
 			[{"id":1,"name":"Everlane","description":"Baccarate Cocktail Party in a Box","category":"Crystal","price":"1995.00"},
 			{"id":2,"name":"KRIS BEAR","description":"KRIS BEAR - A LOVELY SURPRISE","category":"Crystal","price":"195.00"}]
 		
 	* To view a specific item, for example item 1 in the Crystal category
-		curl http://localhost:8081/GildedRose/inventory/Crystal/item/1
+		curl http://localhost:8085/inventory/Crystal/item/1
 		
 		response:
 			{"id":1,"name":"Everlane","description":"Baccarate Cocktail Party in a Box","category":"Crystal","price":"1995.00"}
 	
-	
+	* To purchase an item
+		curl http://localhost:8085/inventory/category/item/1/purchase
+		
+		response:
+			Your purchase of KRIS BEAR has been submitted.
 	
