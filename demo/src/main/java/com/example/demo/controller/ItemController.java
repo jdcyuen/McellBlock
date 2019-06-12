@@ -72,17 +72,21 @@ public class ItemController {
 	public @ResponseBody String purchaseItem(@PathVariable String id) {
 		
 		/*
-		 Surge pricing algorithm
-		 =======================
-		 -Whenever findCategory is called to view an item, the itemTracker will save the infomation on who viewed it, how many
-		 times viewed in the last hour
-		 
+		 		 
 		 - When this endpoint is called the information from the itemTracker will be used to calculate the pricing.
 		 
 		 - This where a credit card service would be called to verify the credit card information, check the credit balance
-		   and submit the purchase to the credit card service.
+		   and submit the purchase to the credit card service. If any errors occur, then throw the appropriatge exception
+		   
+		 - Also the check of the inventory to see if the number of items in the inventory is > 0, otherwise throw 
+		   InsufficientInventoryException
 		   
 		 - An improvement would be to add a shopping cart so that the merchant may purchase multiple items.
+		 
+		 Surge pricing algorithm
+		 =======================
+		 -Whenever findCategory is called to view an item, the itemTracker will save the information on who viewed it, how many
+		 times viewed in the last hour
 		 
 		 */
 		
