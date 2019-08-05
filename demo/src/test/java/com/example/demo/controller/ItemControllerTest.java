@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.hamcrest.Matchers;
 import org.hamcrest.core.Is;
@@ -15,8 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -38,7 +44,9 @@ public class ItemControllerTest {
     @InjectMocks
     private ItemController itemController;
     
+    
 
+    
     @Before
     public void init(){
         MockitoAnnotations.initMocks(this);
@@ -48,8 +56,13 @@ public class ItemControllerTest {
     }
 
 	@Test
-	public void testGetInventory() throws Exception {
-               
+	public void testGetInventory() throws Exception {				
+		 Principal mockPrincipal = Mockito.mock(Principal.class);
+		 Mockito.when(mockPrincipal.getName()).thenReturn("joe");
+		 
+		 RequestBuilder requestBuilder = MockMvcRequestBuilders
+				 	.get("/inventory")
+			        .principal(mockPrincipal);
         List<Item> items = Arrays.asList(
                 new Item(Long.valueOf("1"), "mockName1", "mockDescription1", "mockcategory1", "1.00"),
                 new Item(Long.valueOf("2"), "mockName2", "mockDescription2", "mockcategory2", "2.00"),
@@ -60,7 +73,8 @@ public class ItemControllerTest {
             
         
         Mockito.when(itemService.getAll()).thenReturn(items);
-        mockMvc.perform(MockMvcRequestBuilders.get("/inventory"))
+        
+        mockMvc.perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(6)))
@@ -87,8 +101,7 @@ public class ItemControllerTest {
         .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(3)))        
         .andExpect(MockMvcResultMatchers.jsonPath("$[0]", Is.is("category1")))       
         .andExpect(MockMvcResultMatchers.jsonPath("$[1]", Is.is("category2")))
-        .andExpect(MockMvcResultMatchers.jsonPath("$[2]", Is.is("category3")));
-		
+        .andExpect(MockMvcResultMatchers.jsonPath("$[2]", Is.is("category3")));		
 	}
 	
 	@Test
@@ -119,10 +132,19 @@ public class ItemControllerTest {
 	@Test
 	public void testFindCategoryItem() throws Exception {
 		
+		
+		Principal mockPrincipal = Mockito.mock(Principal.class);
+		 Mockito.when(mockPrincipal.getName()).thenReturn("joe");
+		 
+		 RequestBuilder requestBuilder = MockMvcRequestBuilders
+				 	.get("/inventory/{category}/item/{id}", "mockcategory1", "1.00")
+			        .principal(mockPrincipal);
+		
 		Item item = new Item(Long.valueOf("1"), "mockName1", "mockDescription1", "mockcategory1", "1.00");
 		
 		Mockito.when(itemService.getItemByCategoryAndId("mockcategory1", Long.valueOf("1"))).thenReturn(item);
-		mockMvc.perform(MockMvcRequestBuilders.get("/inventory/{category}/item/{id}", "mockcategory1", "1"))
+			
+		mockMvc.perform(requestBuilder)
 		 .andExpect(MockMvcResultMatchers.status().isOk())
 		 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
 		 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is(1)))
@@ -132,7 +154,7 @@ public class ItemControllerTest {
 		 .andExpect(MockMvcResultMatchers.jsonPath("$.price", Is.is("1.00")));
 		
 		Mockito.verify(itemService, Mockito.times(1)).getItemByCategoryAndId("mockcategory1", Long.valueOf("1"));
-		 Mockito.verifyNoMoreInteractions(itemService);
+		Mockito.verifyNoMoreInteractions(itemService);
 		 
 	}
 	

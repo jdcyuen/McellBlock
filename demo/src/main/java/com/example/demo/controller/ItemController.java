@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,10 @@ import com.example.demo.model.RegistrationForm;
 import com.example.demo.repository.entity.Item;
 import com.example.demo.service.ItemServiceImpl;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
+@Slf4j
 //@RequestMapping("/inventory")
 public class ItemController {
 	
@@ -35,7 +40,11 @@ public class ItemController {
     }
 	
 	@GetMapping(value = "/inventory")
-    public @ResponseBody List<Item> findAll() {						
+    public @ResponseBody List<Item> findAll(HttpServletRequest request) {		
+				
+		String username = request.getUserPrincipal().getName();
+		System.out.println("username: " + username);
+		
         return itemService.getAll();
     }
 	
@@ -51,7 +60,10 @@ public class ItemController {
 	
 	
 	@GetMapping(value = "/inventory/{category}/item/{id}")
-	public @ResponseBody Item findCategoryItem(@PathVariable String category, @PathVariable String id) {	
+	public @ResponseBody Item findCategoryItem(@PathVariable String category, @PathVariable String id, HttpServletRequest request) {	
+		
+		String username = request.getUserPrincipal().getName();
+		System.out.println("username: " + username);
 		
 		/*
 		Retrieve username from token and make sure it matches a username in the user database
