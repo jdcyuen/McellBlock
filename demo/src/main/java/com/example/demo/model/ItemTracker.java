@@ -17,8 +17,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class ItemTracker {
 	
-	private Long id;
-	private Date date;
-	private int viewCount;
+	private Date startTime;
+	int viewCount = 0;
 
 }

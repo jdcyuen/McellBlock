@@ -34,6 +34,10 @@ public class ItemServiceImpl {
 		return itemRepo.findById(id);
 	}
 	
+	public void saveItem(Item item) {
+		itemRepo.save(item);
+	}
+	
 	
 	
 

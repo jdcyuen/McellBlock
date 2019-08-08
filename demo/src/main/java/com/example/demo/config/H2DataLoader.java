@@ -27,23 +27,23 @@ public class H2DataLoader {
 	public void initDatabase() {
 		
 		h2JdbcTemplate.execute("DROP TABLE IF EXISTS Item");
-		h2JdbcTemplate.execute("create table Item (id  long auto_increment, name varchar, description varchar, category varchar, price decimal)");	
+		h2JdbcTemplate.execute("create table Item (id  long auto_increment, name varchar, description varchar, category varchar, price decimal, available integer)");	
 		
 		ArrayList<Item> items = new ArrayList<Item>();
-		Item item = new Item("Everlane", "Baccarate Cocktail Party in a Box", "Crystal", "1995.00");
+		Item item = new Item("Everlane", "Baccarate Cocktail Party in a Box", "Crystal", "1995.00", 100);
 		items.add(item);
 		
-		item = new Item("KRIS BEAR", "KRIS BEAR - A LOVELY SURPRISE", "Crystal", "195.00");
+		item = new Item("KRIS BEAR", "KRIS BEAR - A LOVELY SURPRISE", "Crystal", "195.00", 0);
 		items.add(item);
 		
-		item = new Item("NECKLACE", "MIX NECKLACE, WHITE, RHODIUM PLATING", "Jewelry", "399.00");
+		item = new Item("NECKLACE", "MIX NECKLACE, WHITE, RHODIUM PLATING", "Jewelry", "399.00", 99);
 		items.add(item);
 		
 
-		item = new Item("EMERALD NECKLACE", "Pear Shaped Emerald Teardrop Necklace in Yellow Gold from Angara.com", "Jewelry", "798.00");
+		item = new Item("EMERALD NECKLACE", "Pear Shaped Emerald Teardrop Necklace in Yellow Gold from Angara.com", "Jewelry", "798.00", 15);
 		items.add(item);
 		
-		item = new Item("Amethyst Cocktail Ring", "Vintage Inspired Solitaire Cushion Amethyst Cocktail Ring", "Jewelry", "509.00");
+		item = new Item("Amethyst Cocktail Ring", "Vintage Inspired Solitaire Cushion Amethyst Cocktail Ring", "Jewelry", "509.00", 25);
 		items.add(item);
 		
 		

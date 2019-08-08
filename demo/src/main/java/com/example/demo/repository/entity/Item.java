@@ -30,14 +30,15 @@ public class Item {
 	private String name;
 	private String description;
 	private String category;
-	private String price;	
+	private String price;
+	private int available;	
 	
-	public Item(String name, String description, String category, String price ) {
+	public Item(String name, String description, String category, String price, Integer available ) {
 		this.name = name;
 		this.description = description;
 		this.category = category;
 		this.price = price;
-		
+		this.available = available;
 	}
 
 }

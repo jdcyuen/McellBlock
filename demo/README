@@ -30,7 +30,9 @@ To run the application right clicking on the root of the project, select Run As 
    
 5. Thereafter any communication with API must include the JWT token.
 
-6. By receiving a token, the REST api can know that the merchant is authenticated.
+6. By receiving a token, the REST api can know that the merchant is authenticated. However for this coding exercise, I chose to implement basic authentication. 
+   The username can be retrieved from HttpServletRequest by using the user principal to get the username. If a username is present, then we can assume that the
+   user was successfully authenticated.
 
 7. The usage scenario:
 
@@ -45,28 +47,36 @@ To run the application right clicking on the root of the project, select Run As 
 			{"id":5,"name":"Amethyst Cocktail Ring","description":"Vintage Inspired Solitaire Cushion Amethyst Cocktail Ring","category":"Jewelry","price":"509.00"}]
 		
 	* To view a list of product categories:
-		curl http://localhost:8085/inventory/categories
+		curl --user name:password http://localhost:8085/inventory/categories
 		
 		response:
 			["Jewelry","Crystal"]
 		
 	* To view list of products for a category, for example Crystal
 		
-		curl http://localhost:8085//inventory/Crystal/items
+		curl --user name:password http://localhost:8085//inventory/Crystal/items
 		
 		response:
 			[{"id":1,"name":"Everlane","description":"Baccarate Cocktail Party in a Box","category":"Crystal","price":"1995.00"},
 			{"id":2,"name":"KRIS BEAR","description":"KRIS BEAR - A LOVELY SURPRISE","category":"Crystal","price":"195.00"}]
 		
 	* To view a specific item, for example item 1 in the Crystal category
-		curl http://localhost:8085/inventory/Crystal/item/1
+		curl --user name:password http://localhost:8085/inventory/Crystal/item/1
 		
 		response:
 			{"id":1,"name":"Everlane","description":"Baccarate Cocktail Party in a Box","category":"Crystal","price":"1995.00"}
 	
 	* To purchase an item
-		curl http://localhost:8085/inventory/category/item/1/purchase
+		curl --user name:password http://localhost:8085/inventory/category/item/1/purchase
 		
 		response:
-			Your purchase of KRIS BEAR has been submitted.
+			Your purchase of Everlane for the price of 1995.500 has been submitted.
+			
+		response if surge pricing had been applied:
+		
+			Your purchase of Everlane for the price of 2194.500 has been submitted.
+	* For an item out of stock		
+		curl --user name:password http://localhost:8085/inventory/category/item/2/purchase
+		response:
+			The item KRIS BEAR you wish to purchase is out of stock. We apologize for any inconvenience.
 	
